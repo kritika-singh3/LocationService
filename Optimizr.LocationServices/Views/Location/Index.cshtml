@@ -3,28 +3,31 @@
     ViewBag.Title = "Index";
 }
 @section scripts{
-    <script type="text/javascript">
-        function OnMapReady() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(ShowCurrentPosition, ShowError);
-            } else {
-                alert("Geolocation is not supported by this browser");
-            }
-        }
-    </script>
-    <script src="~/Scripts/viewMap.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2-GdkImuJBdTdPbwgjlFbRMoLuY4gkQ&callback=OnMapReady"></script>
+    <script type="text/javascript" src="~/Scripts/viewMap.js"></script>
 }
 <style type="text/css">
     div#mapDiv {
         min-width:300px;
-        min-height:400px;
+        min-height:450px;
         width:100%;
         height:100%;
         background-color:gainsboro;
     }
+    div#inputDiv{
+        margin:5px;
+        width:100%;
+    }
+    span#errorTxt{
+        display:none;
+        font-weight:bold;
+    }
 </style>
-<h2>Index</h2>
+<div id="inputDiv">
+    <label for="apiKey">Enter Google Map API Key</label>
+    <input type="text" name="apiKey" id="apiKey" placeholder="Enter Google Map API Key"/>
+    <button onclick="OnKeyEntered()">Load Map</button>
+    <span id="errorTxt" class="text-danger"></span>
+</div>
 
 <div id="mapDiv">
     Google Map with current position
