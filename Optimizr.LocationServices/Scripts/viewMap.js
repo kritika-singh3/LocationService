@@ -3,11 +3,39 @@ var map = null, marker = null;
 var lat = 0, lon = 0, WeatherContent = 0;
 var timestamp = 0, isLocal = false;
 
+function OnMapReady() {
+   if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(ShowCurrentPosition, ShowError);
+   } else {
+        alert("Geolocation is not supported by this browser");
+   }
+}
+
+function OnKeyEntered(){
+    var key = $("#apiKey").val().trim();
+    if(key == null || key.length == 0){
+        $("#errorTxt").html("Please enter a key");
+        $("#errorTxt").show();
+        return;
+    }
+    timeZoneKey = key;
+    var scriptURL = "https://maps.googleapis.com/maps/api/js?key="+key;
+    $.getScript(scriptURL, function(script, textStatus, jqXHR) {
+        if(jqXHR.status == 200){
+            $("#errorTxt").hide();
+            OnMapReady();
+        } else{
+            $("#errorTxt").html("Unable to load google maps");
+            $("#errorTxt").show();
+        }
+    });
+}
+
 function ShowCurrentPosition(currPos) {
     var latLon = new google.maps.LatLng(currPos.coords.latitude, currPos.coords.longitude);
     var mapProp = {
         center: latLon,
-        zoom: 3,
+        zoom: 4,
         draggable: true
     };
     map = new google.maps.Map(document.getElementById("mapDiv"), mapProp);
@@ -48,6 +76,8 @@ function OnLocalTimeReceived(timeInfo) {
         var sumOfOffsets = timeInfo.dstOffset * 1000 + timeInfo.rawOffset * 1000;
         destDate = new Date(timestamp * 1000 + sumOfOffsets);
         isLocal = true;
+    } else {
+        isLocal = false;
     }
     var infoWindow = new google.maps.InfoWindow({
         content: infoWindowDiv(WeatherContent, destDate)
