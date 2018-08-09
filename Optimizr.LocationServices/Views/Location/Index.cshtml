@@ -15,8 +15,17 @@
     <script src="~/Scripts/viewMap.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2-GdkImuJBdTdPbwgjlFbRMoLuY4gkQ&callback=OnMapReady"></script>
 }
+<style type="text/css">
+    div#mapDiv {
+        min-width:300px;
+        min-height:400px;
+        width:100%;
+        height:100%;
+        background-color:gainsboro;
+    }
+</style>
 <h2>Index</h2>
 
-<div id="mapDiv" style="min-width:300px;min-height:400px;width:100%;height:100%;background-color:gainsboro;">
+<div id="mapDiv">
     Google Map with current position
 </div>
