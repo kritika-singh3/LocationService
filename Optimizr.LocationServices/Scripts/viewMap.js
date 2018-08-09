@@ -1,9 +1,7 @@
 /// <reference path="jquery-1.10.2.js" />
-var weatherAPIKey = "3291c93374a0330357e1e61bec9dd837";
-var timeZoneKey = "AIzaSyCL2-GdkImuJBdTdPbwgjlFbRMoLuY4gkQ";
-var map = "", marker = "";
-var lat = "", lon = "", WeatherContent = "";
-var timestamp = "", isLocal = false;
+var map = null, marker = null;
+var lat = 0, lon = 0, WeatherContent = 0;
+var timestamp = 0, isLocal = false;
 
 function ShowCurrentPosition(currPos) {
     var latLon = new google.maps.LatLng(currPos.coords.latitude, currPos.coords.longitude);
